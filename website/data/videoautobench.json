@@ -1,0 +1,79 @@
+[
+    {
+        "Models": "GPT-4o",
+        "vs_Selected": 70.98,
+        "vs_Rejected": 94.12,
+        "Avg": 82.55,
+        "Size": "-"
+    },
+    {
+        "Models": "GPT-4o-mini",
+        "vs_Selected": 49.80,
+        "vs_Rejected": 92.16,
+        "Avg": 70.98,
+        "Size": "-"
+    },
+    {
+        "Models": "Gemini-1.5-Pro",
+        "vs_Selected": 28.24,
+        "vs_Rejected": 82.74,
+        "Avg": 55.49,
+        "Size": "-"
+    },
+    {
+        "Models": "Gemini-1.5-Flash",
+        "vs_Selected": 27.25,
+        "vs_Rejected": 81.96,
+        "Avg": 54.61,
+        "Size": "-"
+    },
+    {
+        "Models": "Aria",
+        "Size": "8×3.5B",
+        "vs_Selected": 19.80,
+        "vs_Rejected": 76.86,
+        "Avg": 48.33
+    },
+    {
+        "Models": "Qwen2-VL",
+        "Size": "72B",
+        "vs_Selected": 13.92,
+        "vs_Rejected": 64.71,
+        "Avg": 39.32
+    },
+    {
+        "Models": "Qwen2-VL",
+        "Size": "7B",
+        "vs_Selected": 11.96,
+        "vs_Rejected": 60.00,
+        "Avg": 35.98
+    },
+    {
+        "Models": "LLaVA-Video",
+        "Size": "72B",
+        "vs_Selected": 7.45,
+        "vs_Rejected": 56.08,
+        "Avg": 31.77
+    },
+    {
+        "Models": "LLaVA-OneVision",
+        "Size": "72B",
+        "vs_Selected": 4.12,
+        "vs_Rejected": 52.16,
+        "Avg": 28.14
+    },
+    {
+        "Models": "LLaVA-Video",
+        "Size": "7B",
+        "vs_Selected": 5.29,
+        "vs_Rejected": 46.67,
+        "Avg": 25.98
+    },
+    {
+        "Models": "LLaVA-OneVision",
+        "Size": "7B",
+        "vs_Selected": 3.53,
+        "vs_Rejected": 30.98,
+        "Avg": 17.26
+    }
+]

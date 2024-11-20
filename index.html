@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VideoAutoArena: An Automated Arena for Evaluating Large Multimodal Models in Video Analysis through User Simulation</title>
+    <!-- consider to add our icon here -->
+    <!-- <link rel="icon" href="VideoAutoArenaLogo.png" type="image/icon type"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="website/css/bulma.min.css">
+    <link rel="stylesheet" href="website/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="website/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="website/css/fontawesome.all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./website/javascript/bulma-carousel.min.js"></script>
+    <script src="./website/javascript/bulma-slider.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script defer src="website/javascript/fontawesome.all.min.js"></script>
+    <!-- <script src="website/javascript/peity-vanilla.js"></script> -->
+
+
+    <!-- below we load some js scripts -->
+    <script src="website/javascript/benchmark_table.js" type="module"></script>
+
+
+    <link rel="stylesheet" href="website/css/index.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7GJ4FYMY9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C7GJ4FYMY9');
+    </script>
+
+    <!-- MathJax script -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/javascript">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+
+    <noscript>
+        <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101339888ns.gif" /></p>
+    </noscript>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var toggles = document.querySelectorAll('.toggle-section');
+        toggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+            var content = document.getElementById(toggle.getAttribute('aria-controls'));
+            var toggleIcon = toggle.children[1].children[0];
+            content.classList.toggle('is-active');
+            if (content.classList.contains('is-active')) {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(180deg)';
+            } else {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(0deg)';
+            }
+            });
+        });
+        });
+      </script>
+
+    <style>
+        .collapse-content {
+          display: none;
+          margin-top: 10px;
+        }
+        .collapse-content.is-active {
+          display: block;
+        }
+        /* .toggle-section .icon.is-small {
+          transition: transform 0.3s ease;
+        } */
+        /* .toggle-section .fa-angle-up {
+          transform: rotate(180deg);
+        } */
+      </style>
+</head>
+
+<body>
+
+    
+    <!-- Title. -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title is-bold">
+                            <img src="website/img/VideoAutoArenaLogo.png" alt="logo" width="50" height="50" />
+                            VideoAutoArena: An Automated Arena for Evaluating Large Multimodal Models in Video Analysis through User Simulation
+                        </h1>
+                        <!-- <p style="color: darkred; font-weight: bold;">A more efficient multimodal large language model series.</p> -->
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                              <a href="https://chiyeunglaw.github.io/">Ziyang Luo</a><sup>1, 2, 3</sup>,</span>
+                            <span class="author-block">
+                              <a href="https://teowu.github.io/">Haoning Wu</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                              <a href="https://sites.google.com/view/dongxu-li/home">Dongxu Li</a><sup>1</sup>,
+                            </span>
+                            <span class="author-block">
+                              <a href="https://majingcuhk.github.io/">Jing Ma</a><sup>2</sup>,
+                            </span>
+
+                            <span class="author-block">
+                                <a href="https://www.comp.nus.edu.sg/~mohan/">Mohan Kankanhalli</a><sup>3</sup>,
+                              </span>
+                              <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=MuUhwi0AAAAJ&hl=en">Junnan Li</a><sup>1</sup>,
+                              </span>
+                          </div>                
+                          
+                
+                          <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>Rhymes AI,</span>
+                            <span class="author-block"><sup>2</sup>Hong Kong Baptist University,</span>
+                            <span class="author-block"><sup>3</sup>National University of Singapore</span>
+                          </div>
+                          <!-- <div class="'is-size-5 publication-authors">
+                            <span class="author-block"><sup>†</sup>Equal contribution</span>
+                          </div>
+                          <div class="'is-size-4 publication-authors">
+                            <span class="author-block" style="color: darkred; font-weight: bold;">NeurIPS 2024 D&B (Oral)</span>
+                          </div> -->
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                 <!-- <span class="link-block">
+                                    <a class="btn btn-outline-dark"
+                                     role="button">
+                                    &nbsp;
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>&nbsp;&nbsp;Paper (Coming Soon)</span>
+                                    </a> &nbsp;&nbsp;
+                                 </span> -->
+                                <span class="link-block">
+                                    <a href="" class="btn btn-outline-dark"
+                                        role="button">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a> &nbsp;&nbsp;
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href="https://github.com/VideoAutoArena/VideoAutoArena" class="btn btn-outline-dark" role="button">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>VideoAutoArena</span>
+                                    </a> &nbsp;&nbsp;
+
+                                </span>
+
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href="https://github.com/VideoAutoArena/VideoAutoBench" class="btn btn-outline-dark" role="button">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>VideoAutoBench</span>
+                                    </a> &nbsp;&nbsp;
+
+                                </span>                                            
+                                
+                                <!-- Data Link. -->
+                                <span class="link-block">
+                                    <a href="" class="btn btn-outline-dark" role="button">
+                                        <span class="icon" style="display: inline-flex; align-items: center;">
+                                            <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" style="width: 20px; height: 18px; margin-right: 5px;">
+                                        </span>
+                                        <span>Data</span>
+                                    </a> &nbsp;&nbsp;
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard-->
+    <section class="section" id="embodied_agent_interface_detail">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <h2 class="title is-2" style="text-align: center;">Leaderboards</h2>
+                <br>
+                <div class="content has-text-justified">
+                    <div class="has-text-centered">
+                        <h4 class="title is-4">🚀 Join the VideoAutoArena and VideoAutoBench! Share your scores, climb the leaderboard, and compete for the top spot! 🏆 </h4>
+                        <br>
+                        <p>
+                            Please remember to include the number of frames with each submission.
+                        </p>
+                        <p>
+                            Email us at <a href="mailto:cszyluo@comp.hkbu.edu.hk"><i class="fas fa-envelope"></i></a> or <a href="mailto:chiyeunglaw1@gmail.com"><i class="fas fa-envelope"></i></a>.
+                        </p>
+                    </div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="main-results-tab" data-bs-toggle="tab"
+                                data-bs-target="#benchmark-table-content" type="button" role="tab"
+                                aria-controls="main-results-tab" aria-selected="true">VideoAutoArena</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="eurus-code-table-tab" data-bs-toggle="tab"
+                                data-bs-target="#eurus-code-table-content" type="button" role="tab"
+                                aria-controls="eurus-code-table-tab" aria-selected="false">VideoAutoBench</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="benchmark-table-content" role="tabpanel"
+                            aria-labelledby="benchmark-table-content">
+                            <div id="behavior-benchmark-main-table"></div>
+                        </div>
+                        <div class="tab-pane fade" id="eurus-code-table-content" role="tabpanel"
+                            aria-labelledby="eurus-code-table-content">
+                            <div id="virtualhome-benchmark-main-table"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <p>
+                        We present the ELO ratings and win rates across 4 video length categories for 11 SOTA LMMs in video analysis. Our evaluation involves a total of 12,479 head-to-head battles.
+                    </p>
+
+                </div>
+                <!-- <br>
+                <div class="collapsible-section">
+                    <button class="button is-fullwidth toggle-section" aria-controls="benchmark_table">
+                        <span>View benchmark</span>
+                        <span class="icon is-small">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <div id="benchmark_table" class="collapse-content">
+                        <iframe
+                        src="https://huggingface.co/datasets/wchai/Video-Detailed-Caption/embed/viewer/default/VDC_captions"
+                        frameborder="0"
+                        width="100%"
+                        height="560px"
+                        ></iframe>
+                    </div>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const button = document.querySelector('[aria-controls="benchmark_table"]');
+                        if (button) {
+                            button.click();
+                        }
+                    });
+                </script> -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Example video -->
+    <div class="video-container">
+        <h2 class="title is-2" style="text-align: center;">VideoAutoArena example</h2>
+        <br>
+        <table style="width: 80%; margin: 0 auto;">
+            <tr>
+                <td style="width: 50%; padding: 10px;">
+                    <video autoplay muted loop playsinline style="width: 100%; height: auto;">
+                        <source src="website/videos/Candy.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> 
+                    <div class="collapsible-section">
+                        <button class="button is-fullwidth toggle-section" aria-controls="transition_table_vh_1">
+                            <span>View battle example #1</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        <div id="transition_table_vh_1" class="collapse-content">
+                            <table class="table is-striped is-hoverable" id="vh_logical_matching_score" style="width: 100%; table-layout: fixed; font-size: 0.9em;">
+                                <thead>
+                                    <tr> 
+                                        <th style="width: 15%;"><b>User Simulation (Role Play)</b></th>
+                                        <th style="width: 85%;">A person with a background in traditional Japanese arts and crafts, particularly skilled in amezaiku or Japanese candy artistry, who is passionate about preserving and sharing cultural heritage through interactive demonstrations and workshops.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>User Simulation (Question Asking)</b></th>
+                                        <th style="width: 85%;">As someone passionate about preserving and sharing the art of amezaiku, I'm interested in the tools and techniques highlighted in the video. Could you explain what tools are mentioned for making Japanese candy art and how they contribute to the candy's delicate nature? Please format the response as a list.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Model A's Response (Aria)</b></th>
+                                        <th style="width: 85%;">Certainly! Here are the tools mentioned in the video for making Japanese candy art, along with their contributions to the candy's delicate nature:\n\n- **Japanese Scissors**:\n  - **Contribution**: Used for precise cutting and shaping of the candy.\n  \n- **Crock-Pot**:\n  - **Contribution**: Helps in melting and adjusting the consistency of the candy, ensuring it maintains its delicate form.\n\n- **Food Colors**:\n  - **Contribution**: Allows for the addition of vibrant colors to the candy, enhancing its visual appeal without compromising its delicacy.\n\nThese tools are crucial in creating intricate and delicate candy art, as they enable the artist to manipulate the candy's texture and appearance with high precision and care.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Model B's Response (LLaVA-Video-72B)</b></th>
+                                        <th style="width: 85%;">- Japanese scissors: Essential for cutting and shaping the candy into precise figures, contributing to the art's delicate and intricate designs.\n- Mold power: Likely a typo referring to 'mold powder' or 'molding power,' which is used to shape and hold the candy in place, ensuring the art maintains its form despite the candy's soft and pliable nature.\n- Food colors: Vital for adding vibrant hues to the candy art, allowing for a wide range of colors that enhance the visual appeal and thematic representation of the figures.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Automatic Judge</b></th>
+                                        <th style="width: 85%;">1. <b>Instruction Following</b>: Model A follows the instructions more closely by explicitly stating the contributions of each tool to the candy's delicate nature, addressing the user's question directly. Model B introduces an element not mentioned in the video, 'mold power,' which diverges from the user's instructions. 2. <b>Accuracy</b>: Model A accurately reflects the content of the video, listing Japanese scissors, a Crock-Pot, and food colors. Model B mentions 'mold power,' which is not referenced in the video, leading to an inaccurate response. 3. <b>Relevance</b>: Model A provides information relevant to the user's interest in amezaiku by focusing on the precise tools and their roles. Model B includes an irrelevant term ('mold power'), reducing its relevance. 4. <b>Helpfulness</b>: Model A offers a detailed explanation of how each tool contributes to the candy's delicate nature, aiding user understanding. Model B introduces a possible misunderstanding with 'mold power,' which detracts from helpfulness. <b>Overall: Model A Wins.</b></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                
+                <td style="width: 50%; padding: 10px;">
+                    <video autoplay muted loop playsinline style="width: 100%; height: auto;">
+                        <source src="website/videos/Pineapple.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> 
+                    <div class="collapsible-section">
+                        <button class="button is-fullwidth toggle-section" aria-controls="transition_table_vh_2">
+                            <span>View battle example #2</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        <div id="transition_table_vh_2" class="collapse-content">
+                            <table class="table is-striped is-hoverable" id="vh_logical_matching_score" style="width: 100%; table-layout: fixed; font-size: 0.9em;">
+                                <thead>
+                                    <tr> 
+                                        <th style="width: 15%;"><b>User Simulation (Role Play)</b></th>
+                                        <th style="width: 85%;">A person who enjoys recreational cooking and frequently hosts parties for friends and family. They are curious about incorporating more tropical flavors into their gatherings and are interested in easy-to-make, crowd-pleasing beverages.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>User Simulation (Question Asking)</b></th>
+                                        <th style="width: 85%;">I'm planning to host a tropical-themed party and want to offer a unique twist on classic beverages. The video showed a process involving pineapples and some refreshing ingredients. Can you explain how I can make a creative pineapple drink as shown in the video to impress my guests?</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Model A's Response (Qwen2VL-72B)</b></th>
+                                        <th style="width: 85%;">Absolutely! To create a unique pineapple beverage for your tropical-themed party, you'll need to start by making a pineapple juice base. Blend fresh pineapple chunks with coconut milk until smooth. Pour this mixture into a glass and add a scoop of whipped cream on top. Garnish it with a pineapple slice and a cherry for an extra touch. This pineapple drink is sure to be a hit at your party!</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Model B's Response (Aria)</b></th>
+                                        <th style="width: 85%;">To create a unique pineapple drink for your tropical-themed party, follow these steps:\n\n1. **Preparation of Pineapple Juice Mixture:**\n   - In a pot on a stovetop, combine pineapple juice (3 1/2 - 4 cups) and sugar (3/4 cup).\n   - Stir the mixture until the sugar is fully dissolved.\n   - Allow the mixture to cool completely.\n\n2. **Making the Cream Topping:**\n   - In a blender, add frozen pineapple chunks (4 cups), coconut milk (1 3/4 cups), and blend until smooth.\n   - Pour the mixture into a container and freeze until solid.\n\n3. **Serving the Drink:**\n   - Once the mixture is frozen, scoop it out and place it into a piping bag fitted with a decorative tip.\n   - Pipe the creamy mixture onto a glass filled with the pineapple juice mixture.\n   - Garnish with a pineapple-shaped straw and a cherry on top.\n\nThis will give your guests a refreshing and visually appealing pineapple drink that's perfect for a tropical party.</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%;"><b>Automatic Judge</b></th>
+                                        <th style="width: 85%;">1. <b>Instruction Following</b>: Model B provides a more detailed response that closely follows the user's request to explain the process shown in the video for creating a unique pineapple drink. Model A offers a simpler explanation that is less representative of the video content. 2. <b>Accuracy</b>: Model B accurately describes the process seen in the video, including the preparation of a pineapple juice mixture and a creamy topping. Model A's description lacks specifics and misses key steps seen in the video. 3. <b>Relevance</b>: Model B considers the user's interest in a unique and impressive drink for their party by providing a detailed recipe. Model A presents a simpler version that doesn't align as well with the user's request for uniqueness. 4. <b>Helpfulness</b>: Model B is more helpful by giving a step-by-step guide that the user can follow to recreate the drink from the video, including refrigeration and presentation tips. Model A's response lacks these details. <b>Overall: Model B Wins.</b></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+
+                
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- Abstract. -->
+    <section class="section" id="abstract">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-2">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            Large multimodal models (LMMs) with advanced video analysis capabilities are gaining attention, but existing benchmarks like VideoMME and LongVideoBench often lack the depth needed to assess real-world user demands. To address this, we introduce <b>VideoAutoArena</b>, an automated arena-style benchmark inspired by LMSYS Chatbot Arena. It generates adaptive, open-ended questions to rigorously evaluate LMMs' video understanding, using a modified ELO Rating System for continuous comparisons.
+
+                            To validate the system, we compare it to a curated subset of human annotations, showing strong alignment with human judgment. We also introduce a fault-driven evolution strategy, gradually increasing question complexity. Experimental results demonstrate that VideoAutoArena effectively distinguishes between LMMs, revealing model strengths and weaknesses.
+
+                            Additionally, VideoAutoBench serves as a supplementary benchmark, where human-annotated battle outcomes are validated by GPT-4o, enhancing the evaluation process. Together, VideoAutoArena and VideoAutoBench offer a scalable, cost-effective framework for user-centric video analysis of LMMs.
+                        </p>
+                    </div>
+                    <!-- Add the image here -->
+                <figure class="image is-centered">
+                    <img src="website/img/videoautoarena.jpg" alt="VideoAutoArena Diagram" style="max-width: 100%; height: auto;">
+                </figure>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre>
+                @article{xxx}
+            </pre>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div align="center" class="container">
+            <div class="columns is-centered">
+                <div class="content is-small">
+                    This website templated is borrowed from <a
+                        href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+
+</html>
