@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: "Size",
                 field: "Size",
-                widthGrow: 1
+                widthGrow: 1.8
             },
             {
                 title: "Frames",
@@ -133,27 +133,33 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: "ELO",
                 field: "ELO",
-                widthGrow: 1.5
+                widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterGoalInt
             },{
                 title: "Win Rates",
                 field: "Win Rates",
-                widthGrow: 1
+                widthGrow: 1.2,
+                hozAlign: "center", formatter: colorFormatterAvg
             },{
                 title: "(8s, 15s]",
                 field: "(8s, 15s]",
-                widthGrow: 1
+                widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterActionSeq
             },{
                 title: "(15s, 60s]",
                 field: "(15s, 60s]",
-                widthGrow: 1
+                widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterSubgoal
             },{
                 title: "(180s, 600s]",
                 field: "(180s, 600s]",
-                widthGrow: 1
+                widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterTrans
             },{
                 title: "(900s, 3600s]",
                 field: "(900s, 3600s]",
-                widthGrow: 1
+                widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterObject
             },
             
             // Add other relevant columns for VideoAutoArena here
@@ -181,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     precision: 2
                 },
                 widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterGoalInt
             },
             {
                 title: "vs. Rejected",
@@ -191,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     precision: 2
                 },
                 widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterObject
             },
             {
                 title: "Avg.",
@@ -201,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     precision: 2
                 },
                 widthGrow: 1.5,
+                hozAlign: "center", formatter: colorFormatterTrans
             },
             
             // Add other relevant columns for VideoAutoBench here
