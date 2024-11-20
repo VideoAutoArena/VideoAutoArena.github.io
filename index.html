@@ -113,8 +113,9 @@
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
                         <h1 class="title is-1 publication-title is-bold">
-                            <img src="website/img/VideoAutoArenaLogo.png" alt="logo" width="50" height="50" />
-                            VideoAutoArena: An Automated Arena for Evaluating Large Multimodal Models in Video Analysis through User Simulation
+                            <img src="website/img/VideoAutoArenaLogo.png" alt="logo" width="100" height="auto" />
+                            VideoAutoArena
+                            <br>An Automated Arena for Evaluating Large Multimodal Models in Video Analysis through User Simulation
                         </h1>
                         <!-- <p style="color: darkred; font-weight: bold;">A more efficient multimodal large language model series.</p> -->
                         <div class="is-size-5 publication-authors">
@@ -218,7 +219,7 @@
                 <br>
                 <div class="content has-text-justified">
                     <div class="has-text-centered">
-                        <h4 class="title is-4">🚀 Join the VideoAutoArena and VideoAutoBench! Share your scores, climb the leaderboard, and compete for the top spot! 🏆 </h4>
+                        <h4 class="title is-4">🚀 Join the VideoAutoArena and VideoAutoBench! Share your scores, and compete for the top ! 🏆 </h4>
                         <br>
                         <p>
                             Please remember to include the number of frames with each submission.
@@ -227,17 +228,30 @@
                             Email us at <a href="mailto:cszyluo@comp.hkbu.edu.hk"><i class="fas fa-envelope"></i></a> or <a href="mailto:chiyeunglaw1@gmail.com"><i class="fas fa-envelope"></i></a>.
                         </p>
                     </div>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="main-results-tab" data-bs-toggle="tab"
-                                data-bs-target="#benchmark-table-content" type="button" role="tab"
-                                aria-controls="main-results-tab" aria-selected="true">VideoAutoArena</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="eurus-code-table-tab" data-bs-toggle="tab"
-                                data-bs-target="#eurus-code-table-content" type="button" role="tab"
-                                aria-controls="eurus-code-table-tab" aria-selected="false">VideoAutoBench</button>
-                        </li>
+                    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                        <style>
+                            .nav-tabs {
+                                display: flex;
+                                justify-content: center;
+                            }
+                            .nav-item {
+                                list-style-type: none;
+                            }
+                        </style>
+                        
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="main-results-tab" data-bs-toggle="tab"
+                                    data-bs-target="#benchmark-table-content" type="button" role="tab"
+                                    aria-controls="main-results-tab" aria-selected="true">VideoAutoArena</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="eurus-code-table-tab" data-bs-toggle="tab"
+                                    data-bs-target="#eurus-code-table-content" type="button" role="tab"
+                                    aria-controls="eurus-code-table-tab" aria-selected="false">VideoAutoBench</button>
+                            </li>
+                        </ul>
+
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="benchmark-table-content" role="tabpanel"
@@ -292,10 +306,10 @@
         <table style="width: 80%; margin: 0 auto;">
             <tr>
                 <td style="width: 50%; padding: 10px;">
-                    <video autoplay muted loop playsinline style="width: 100%; height: auto;">
+                    <video autoplay muted loop playsinline controls style="width: 100%; height: auto;">
                         <source src="website/videos/Candy.mp4" type="video/mp4">
                         Your browser does not support the video tag.
-                    </video> 
+                    </video>
                     <div class="collapsible-section">
                         <button class="button is-fullwidth toggle-section" aria-controls="transition_table_vh_1">
                             <span>View battle example #1</span>
@@ -333,7 +347,7 @@
                 </td>
                 
                 <td style="width: 50%; padding: 10px;">
-                    <video autoplay muted loop playsinline style="width: 100%; height: auto;">
+                    <video autoplay muted loop playsinline controls style="width: 100%; height: auto;">
                         <source src="website/videos/Pineapple.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video> 
