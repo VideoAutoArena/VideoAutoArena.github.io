@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: "Size",
                 field: "Size",
-                widthGrow: 1.8
+                widthGrow: 1
             },
             {
                 title: "Frames",
@@ -133,17 +133,17 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: "ELO",
                 field: "ELO",
-                widthGrow: 1.5,
+                widthGrow: 1.8,
                 hozAlign: "center", formatter: colorFormatterGoalInt
             },{
                 title: "Win Rates",
                 field: "Win Rates",
-                widthGrow: 1.2,
+                widthGrow: 1.8,
                 hozAlign: "center", formatter: colorFormatterAvg
             },{
                 title: "(8s, 15s]",
                 field: "(8s, 15s]",
-                widthGrow: 1.5,
+                widthGrow: 1.8,
                 hozAlign: "center", formatter: colorFormatterActionSeq
             },{
                 title: "(15s, 60s]",
@@ -153,12 +153,12 @@ document.addEventListener('DOMContentLoaded', function () {
             },{
                 title: "(180s, 600s]",
                 field: "(180s, 600s]",
-                widthGrow: 1.5,
+                widthGrow: 1.8,
                 hozAlign: "center", formatter: colorFormatterTrans
             },{
                 title: "(900s, 3600s]",
                 field: "(900s, 3600s]",
-                widthGrow: 1.5,
+                widthGrow: 1.8,
                 hozAlign: "center", formatter: colorFormatterObject
             },
             
