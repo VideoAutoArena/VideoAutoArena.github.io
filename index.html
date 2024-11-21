@@ -228,25 +228,29 @@
                             Email us at <a href="mailto:cszyluo@comp.hkbu.edu.hk"><i class="fas fa-envelope"></i></a> or <a href="mailto:chiyeunglaw1@gmail.com"><i class="fas fa-envelope"></i></a>.
                         </p>
                     </div>
-                    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                    <ul class="nav justify-content-center" id="myTab" role="tablist">
                         <style>
                             .nav-tabs {
                                 display: flex;
-                                justify-content: center; /* 确保内容居中 */
-                                width: 100%; /* 设置宽度为父容器的50% */
-                                max-width: 820px; /* 设置最大宽度为600px */
                             }
                             .nav-item {
                                 list-style-type: none;
+                                margin-bottom: 0; /* 确保没有底部外边距 */
+                            }
+                            .nav-link {
+                                padding: 10px 15px; /* 设置内边距以确保高度一致 */
+                                display: flex;
+                                align-items: center; /* 垂直居中对齐内容 */
+                                margin-bottom: 0; /* 确保没有底部外边距 */
                             }
                         </style>
                         
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-link" role="presentation">
                             <button class="nav-link active" id="main-results-tab" data-bs-toggle="tab"
                                 data-bs-target="#benchmark-table-content" type="button" role="tab"
                                 aria-controls="main-results-tab" aria-selected="true">VideoAutoArena</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-link" role="presentation">
                             <button class="nav-link" id="eurus-code-table-tab" data-bs-toggle="tab"
                                 data-bs-target="#eurus-code-table-content" type="button" role="tab"
                                 aria-controls="eurus-code-table-tab" aria-selected="false">VideoAutoBench</button>
