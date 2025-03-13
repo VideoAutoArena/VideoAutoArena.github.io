@@ -100,191 +100,227 @@ const colorFormatterObject = createColorFormatter(
 );
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('Loading benchmark tables...');
+    
     // Load both sets of data
     Promise.all([
-        fetch('website/data/videoautoarena.json').then(response => response.json()),
-        fetch('website/data/videoautobench.json').then(response => response.json())
+        fetch('website/data/videoautoarena.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error loading VideoAutoArena data:', error);
+                return [];
+            }),
+        fetch('website/data/videoautobench.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error loading VideoAutoBench data:', error);
+                return [];
+            })
     ])
     .then(([behavior_total_benchmark_data, virtualhome_total_benchmark_data]) => {
-        // Set up function to get min and max for columns
-        var getColumnMinMax = (data, field) => {
-            let values = data.map(item => item[field]).filter(val => val !== "-").map(Number);
-            return { min: Math.min(...values), max: Math.max(...values) };
-        };
+        console.log('Data loaded:', {
+            videoautoarena: behavior_total_benchmark_data,
+            videoautobench: virtualhome_total_benchmark_data
+        });
 
-        // Columns for VideoAutoArena (behavior_total_benchmark_data)
-        var behavior_columns = [
-            {
-                title: "Models",
-                field: "Models",
-                widthGrow: 1.5,
-                minWidth: 160
-            },
-            {
-                title: "Size",
-                field: "Size",
-                widthGrow: 1
-            },
-            {
-                title: "Frames",
-                field: "frames",
-                widthGrow: 1
-            },
-            {
-                title: "ELO",
-                field: "ELO",
-                widthGrow: 1.8,
-                hozAlign: "center", formatter: colorFormatterGoalInt
-            },{
-                title: "Win Rates",
-                field: "Win Rates",
-                widthGrow: 1.8,
-                hozAlign: "center", formatter: colorFormatterAvg
-            },{
-                title: "(8s, 15s]",
-                field: "(8s, 15s]",
-                widthGrow: 1.8,
-                hozAlign: "center", formatter: colorFormatterActionSeq
-            },{
-                title: "(15s, 60s]",
-                field: "(15s, 60s]",
-                widthGrow: 1.5,
-                hozAlign: "center", formatter: colorFormatterSubgoal
-            },{
-                title: "(180s, 600s]",
-                field: "(180s, 600s]",
-                widthGrow: 1.8,
-                hozAlign: "center", formatter: colorFormatterTrans
-            },{
-                title: "(900s, 3600s]",
-                field: "(900s, 3600s]",
-                widthGrow: 1.8,
-                hozAlign: "center", formatter: colorFormatterObject
-            },
-            
-            // Add other relevant columns for VideoAutoArena here
-        ];
+        try {
+            // Set up function to get min and max for columns
+            var getColumnMinMax = (data, field) => {
+                let values = data.map(item => item[field]).filter(val => val !== "-").map(Number);
+                return { min: Math.min(...values), max: Math.max(...values) };
+            };
 
-        // Columns for VideoAutoBench (virtualhome_total_benchmark_data)
-        var virtualhome_columns = [
-            {
-                title: "Models",
-                field: "Models",
-                widthGrow: 1.5,
-                minWidth: 160
-            },
-            {
-                title: "Size",
-                field: "Size",
-                widthGrow: 1
-            },
-            {
-                title: "vs. Selected",
-                field: "vs_Selected",
-                widthGrow: 1.5,
-                formatter: "number",
-                formatterParams: {
-                    precision: 2
+            // Columns for VideoAutoArena (behavior_total_benchmark_data)
+            var behavior_columns = [
+                {
+                    title: "Models",
+                    field: "Models",
+                    widthGrow: 1.5,
+                    minWidth: 160
                 },
-                widthGrow: 1.5,
-                hozAlign: "center", formatter: colorFormatterGoalInt
-            },
-            {
-                title: "vs. Rejected",
-                field: "vs_Rejected",
-                widthGrow: 1.5,
-                formatter: "number",
-                formatterParams: {
-                    precision: 2
+                {
+                    title: "Size",
+                    field: "Size",
+                    widthGrow: 1
                 },
-                widthGrow: 1.5,
-                hozAlign: "center", formatter: colorFormatterObject
-            },
-            {
-                title: "Avg.",
-                field: "Avg",
-                widthGrow: 1.5,
-                formatter: "number",
-                formatterParams: {
-                    precision: 2
+                {
+                    title: "Frames",
+                    field: "frames",
+                    widthGrow: 1
                 },
-                widthGrow: 1.5,
-                hozAlign: "center", formatter: colorFormatterTrans
-            },
-            
-            // Add other relevant columns for VideoAutoBench here
-        ];
+                {
+                    title: "ELO",
+                    field: "ELO",
+                    widthGrow: 1.8,
+                    hozAlign: "center", formatter: colorFormatterGoalInt
+                },{
+                    title: "Win Rates",
+                    field: "Win Rates",
+                    widthGrow: 1.8,
+                    hozAlign: "center", formatter: colorFormatterAvg
+                },{
+                    title: "(8s, 15s]",
+                    field: "(8s, 15s]",
+                    widthGrow: 1.8,
+                    hozAlign: "center", formatter: colorFormatterActionSeq
+                },{
+                    title: "(15s, 60s]",
+                    field: "(15s, 60s]",
+                    widthGrow: 1.5,
+                    hozAlign: "center", formatter: colorFormatterSubgoal
+                },{
+                    title: "(180s, 600s]",
+                    field: "(180s, 600s]",
+                    widthGrow: 1.8,
+                    hozAlign: "center", formatter: colorFormatterTrans
+                },{
+                    title: "(900s, 3600s]",
+                    field: "(900s, 3600s]",
+                    widthGrow: 1.8,
+                    hozAlign: "center", formatter: colorFormatterObject
+                },
+                
+                // Add other relevant columns for VideoAutoArena here
+            ];
 
-        // Process columns for VideoAutoArena
-        behavior_columns.forEach(column => {
-            if (column.columns) {
-                column.columns.forEach(subColumn => {
-                    let { min, max } = getColumnMinMax(behavior_total_benchmark_data, subColumn.field);
-                    subColumn.formatterParams = { min, max };
-                });
-            } else if (column.field !== "model" && column.field !== "frames" && column.field !== "tpf") {
-                let { min, max } = getColumnMinMax(behavior_total_benchmark_data, column.field);
-                column.formatterParams = { min, max };
-            }
-        });
+            // Columns for VideoAutoBench (virtualhome_total_benchmark_data)
+            var virtualhome_columns = [
+                {
+                    title: "Models",
+                    field: "Models",
+                    widthGrow: 1.5,
+                    minWidth: 160
+                },
+                {
+                    title: "Size",
+                    field: "Size",
+                    widthGrow: 1
+                },
+                {
+                    title: "vs. Selected",
+                    field: "vs_Selected",
+                    widthGrow: 1.5,
+                    formatter: "number",
+                    formatterParams: {
+                        precision: 2
+                    },
+                    widthGrow: 1.5,
+                    hozAlign: "center", formatter: colorFormatterGoalInt
+                },
+                {
+                    title: "vs. Rejected",
+                    field: "vs_Rejected",
+                    widthGrow: 1.5,
+                    formatter: "number",
+                    formatterParams: {
+                        precision: 2
+                    },
+                    widthGrow: 1.5,
+                    hozAlign: "center", formatter: colorFormatterObject
+                },
+                {
+                    title: "Avg.",
+                    field: "Avg",
+                    widthGrow: 1.5,
+                    formatter: "number",
+                    formatterParams: {
+                        precision: 2
+                    },
+                    widthGrow: 1.5,
+                    hozAlign: "center", formatter: colorFormatterTrans
+                },
+                
+                // Add other relevant columns for VideoAutoBench here
+            ];
 
-        // Process columns for VideoAutoBench
-        virtualhome_columns.forEach(column => {
-            if (column.columns) {
-                column.columns.forEach(subColumn => {
-                    let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, subColumn.field);
-                    subColumn.formatterParams = { min, max };
-                });
-            } else if (column.field !== "model" && column.field !== "frames_processed" && column.field !== "tokens_per_frame") {
-                let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, column.field);
-                column.formatterParams = { min, max };
-            }
-        });
+            // Process columns for VideoAutoArena
+            behavior_columns.forEach(column => {
+                if (column.columns) {
+                    column.columns.forEach(subColumn => {
+                        let { min, max } = getColumnMinMax(behavior_total_benchmark_data, subColumn.field);
+                        subColumn.formatterParams = { min, max };
+                    });
+                } else if (column.field !== "model" && column.field !== "frames" && column.field !== "tpf") {
+                    let { min, max } = getColumnMinMax(behavior_total_benchmark_data, column.field);
+                    column.formatterParams = { min, max };
+                }
+            });
 
-        // Initialize the VideoAutoArena table (for behavior data)
-        new Tabulator("#behavior-benchmark-main-table", {
-            data: behavior_total_benchmark_data,
-            layout: "fitColumns",
-            responsiveLayout: "collapse",
-            responsiveLayoutCollapseStartOpen: false,
-            movableColumns: false,
-            initialSort: [{ column: "avg_acc", dir: "desc" }],
-            columnDefaults: {
-                tooltip: true,
-                headerWordWrap: true,
-            },
-            columns: behavior_columns,
-            rowFormatter: function(row) {
-                if (row.getData().Models === "GPT-4o") {
-                    row.getElement().style.fontWeight = "bold";
+            // Process columns for VideoAutoBench
+            virtualhome_columns.forEach(column => {
+                if (column.columns) {
+                    column.columns.forEach(subColumn => {
+                        let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, subColumn.field);
+                        subColumn.formatterParams = { min, max };
+                    });
+                } else if (column.field !== "model" && column.field !== "frames_processed" && column.field !== "tokens_per_frame") {
+                    let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, column.field);
+                    column.formatterParams = { min, max };
                 }
-                if (row.getData().Models === "Aria") {
-                    row.getElement().style.fontWeight = "bold";
-                }
-            },
-        });
+            });
 
-        // Initialize the VideoAutoBench table (for virtualhome data)
-        new Tabulator("#virtualhome-benchmark-main-table", {
-            data: virtualhome_total_benchmark_data,
-            layout: "fitColumns",
-            responsiveLayout: "collapse",
-            responsiveLayoutCollapseStartOpen: false,
-            movableColumns: false,
-            initialSort: [{ column: "score", dir: "desc" }],
-            columnDefaults: {
-                tooltip: true,
-                headerWordWrap: true,
-            },
-            columns: virtualhome_columns,
-            rowFormatter: function(row) {
-                if (row.getData().Models === "GPT-4o") {
-                    row.getElement().style.fontWeight = "bold";
-                }
-                if (row.getData().Models === "Aria") {
-                    row.getElement().style.fontWeight = "bold";
-                }
-            },
-        });
+            // Initialize the VideoAutoArena table (for behavior data)
+            const behaviorTable = new Tabulator("#behavior-benchmark-main-table", {
+                data: behavior_total_benchmark_data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                responsiveLayoutCollapseStartOpen: false,
+                movableColumns: false,
+                initialSort: [{ column: "avg_acc", dir: "desc" }],
+                columnDefaults: {
+                    tooltip: true,
+                    headerWordWrap: true,
+                },
+                columns: behavior_columns,
+                rowFormatter: function(row) {
+                    if (row.getData().Models === "GPT-4o") {
+                        row.getElement().style.fontWeight = "bold";
+                    }
+                    if (row.getData().Models === "Aria") {
+                        row.getElement().style.fontWeight = "bold";
+                    }
+                },
+            });
+
+            // Initialize the VideoAutoBench table (for virtualhome data)
+            const virtualhomeTable = new Tabulator("#virtualhome-benchmark-main-table", {
+                data: virtualhome_total_benchmark_data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                responsiveLayoutCollapseStartOpen: false,
+                movableColumns: false,
+                initialSort: [{ column: "score", dir: "desc" }],
+                columnDefaults: {
+                    tooltip: true,
+                    headerWordWrap: true,
+                },
+                columns: virtualhome_columns,
+                rowFormatter: function(row) {
+                    if (row.getData().Models === "GPT-4o") {
+                        row.getElement().style.fontWeight = "bold";
+                    }
+                    if (row.getData().Models === "Aria") {
+                        row.getElement().style.fontWeight = "bold";
+                    }
+                },
+            });
+
+            console.log('Tables initialized successfully');
+        } catch (error) {
+            console.error('Error initializing tables:', error);
+        }
+    })
+    .catch(error => {
+        console.error('Error in data loading:', error);
     });
 });
